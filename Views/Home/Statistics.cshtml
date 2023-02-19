@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Cinema.Models.LibraryViewModels.ReservationGroup>
+@{
+    ViewData["Title"] = "Ordered Books Statistics";
+}
+<h2>Ordered Books Statistics</h2>
+<table>
+ <tr>
+ <th>
+ Order Date
+ </th>
+ <th>
+ Ordered Books
+ </th>
+ </tr>
+    @foreach (var item in Model)
+    {
+     <tr>
+     <td>
+                @Html.DisplayFor(modelItem => item.ReservedDate)
+     </td>
+     <td>
+                @item.MovieCount
+     </td>
+     </tr>
+    }
+</table>
