@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Cinema.Models.LibraryViewModels.ReservationGroup>
 @{
-    ViewData["Title"] = "Ordered Books Statistics";
+    ViewData["Title"] = "Reserved Movie Statistics";
 }
-<h2>Ordered Books Statistics</h2>
+<h2>Reserved Movie Statistics</h2>
 <table>
  <tr>
  <th>
- Order Date
+ Reservation Date
  </th>
  <th>
- Ordered Books
+ Reserved Movie
  </th>
  </tr>
     @foreach (var item in Model)

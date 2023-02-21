@@ -113,7 +113,7 @@ namespace Cinema.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     _context.Add(movie);
                     await _context.SaveChangesAsync();
@@ -127,8 +127,9 @@ namespace Cinema.Controllers
                 "Try again, and if the problem persists ");
             }
 
-            /*            ViewData["DirectorID"] = new SelectList(_context.Directors, "DirectorID", "DirectorID", movie.DirectorID);
-            */
+            ViewData["LastName"] = new SelectList(_context.Directors, "DirectorID", "LastName", movie.DirectorID);
+
+
             return View(movie);
         }
 
@@ -161,7 +162,7 @@ namespace Cinema.Controllers
                 return NotFound();
             }
             var movieToUpdate = await _context.Movie.FirstOrDefaultAsync(s => s.ID == id);
-            if (await TryUpdateModelAsync<Movie>(movieToUpdate, "",s => s.DirectorID, s => s.Title, s => s.Price, s => s.Genre))
+            if (!await TryUpdateModelAsync<Movie>(movieToUpdate, "",s => s.DirectorID, s => s.Title, s => s.Price, s => s.Genre))
             {
                 try
                 {

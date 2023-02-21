@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.Build.Framework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinema.Models
 {
@@ -7,15 +8,12 @@ namespace Cinema.Models
         public int ID { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
-        [Column(TypeName = "decimal(6, 2)")]
         public decimal Price { get; set; }
-
         public int? DirectorID { get; set; }
         public Director? Director { get; set; }
 
         public ICollection<Reservation>? Reservations { get; set; }
+        public ICollection<CynemaMovie> CynemaMovies { get; set; }
 
-/*        public ICollection<CinemaMovie>? CinemaMovie { get; set; }
-*/
     }
 }

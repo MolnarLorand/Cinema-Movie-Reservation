@@ -1,0 +1,87 @@
+﻿@model Cinema.Models.LibraryViewModels.CynemaIndexData
+
+@{
+    ViewData["Title"] = "Cynemas";
+}
+<h2>Cynemas</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cinema Name</th>
+            <th>Adress</th>
+            <th>Movie</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Cynemas)
+        {
+            string selectedRow = "";
+            if (item.ID == (int?)ViewData["CynemaID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.CinemaName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress)
+                </td>
+
+                <td>
+                    @{
+                        foreach (var book in item.CynemaMovies)
+                        {
+                            @book.Movie.ID @: @book.Movie.Title <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Movies != null)
+{
+    <h3>Movies displayed by Selected Cinema</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Director</th>
+            <th>Price</th>
+        </tr>
+        @foreach (var item in Model.Movies)
+        {
+            string selectedRow = "";
+            if (item.ID == (int?)ViewData["MovieID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.ActionLink("Select", "Index", new { movieID = item.ID })
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.DirectorID
+                </td>
+                <td>
+                    @item.Price
+                </td>
+            </tr>
+        }
+    </table>
+}

@@ -4,6 +4,7 @@ using Cinema.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Migrations
 {
     [DbContext(typeof(CinemaContext))]
-    partial class CinemaContextModelSnapshot : ModelSnapshot
+    [Migration("20230221184143_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,44 +52,6 @@ namespace Cinema.Migrations
                     b.HasKey("CustomerID");
 
                     b.ToTable("Customer", (string)null);
-                });
-
-            modelBuilder.Entity("Cinema.Models.Cynema", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Adress")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("CinemaName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Cynema", (string)null);
-                });
-
-            modelBuilder.Entity("Cinema.Models.CynemaMovie", b =>
-                {
-                    b.Property<int>("MovieID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CynemaID")
-                        .HasColumnType("int");
-
-                    b.HasKey("MovieID", "CynemaID");
-
-                    b.HasIndex("CynemaID");
-
-                    b.ToTable("CynemaMovie", (string)null);
                 });
 
             modelBuilder.Entity("Cinema.Models.Director", b =>
@@ -165,25 +130,6 @@ namespace Cinema.Migrations
                     b.ToTable("Reservation", (string)null);
                 });
 
-            modelBuilder.Entity("Cinema.Models.CynemaMovie", b =>
-                {
-                    b.HasOne("Cinema.Models.Cynema", "Cynema")
-                        .WithMany("CynemaMovies")
-                        .HasForeignKey("CynemaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Cinema.Models.Movie", "Movie")
-                        .WithMany("CynemaMovies")
-                        .HasForeignKey("MovieID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cynema");
-
-                    b.Navigation("Movie");
-                });
-
             modelBuilder.Entity("Cinema.Models.Movie", b =>
                 {
                     b.HasOne("Cinema.Models.Director", "Director")
@@ -217,11 +163,6 @@ namespace Cinema.Migrations
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("Cinema.Models.Cynema", b =>
-                {
-                    b.Navigation("CynemaMovies");
-                });
-
             modelBuilder.Entity("Cinema.Models.Director", b =>
                 {
                     b.Navigation("Movies");
@@ -229,8 +170,6 @@ namespace Cinema.Migrations
 
             modelBuilder.Entity("Cinema.Models.Movie", b =>
                 {
-                    b.Navigation("CynemaMovies");
-
                     b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
