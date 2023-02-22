@@ -73,6 +73,7 @@ namespace Cinema.Controllers
         }
 
         // GET: CynemaMovies/Edit/5
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.CynemaMovies == null)

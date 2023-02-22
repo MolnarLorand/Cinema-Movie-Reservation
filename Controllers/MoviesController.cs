@@ -9,9 +9,12 @@ using Cinema.Data;
 using Cinema.Models;
 using Microsoft.Data.SqlClient;
 using static System.Reflection.Metadata.BlobBuilder;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Cinema.Controllers
 {
+    [Authorize(Roles = "Administrator" )]
     public class MoviesController : Controller
     {
         private readonly CinemaContext _context;
@@ -22,6 +25,7 @@ namespace Cinema.Controllers
         }
 
         // GET: Movies
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -75,6 +79,7 @@ namespace Cinema.Controllers
         }
 
         // GET: Movies/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Movie == null)
